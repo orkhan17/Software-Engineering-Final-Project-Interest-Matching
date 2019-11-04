@@ -12,3 +12,17 @@ E:\Project\Project.API\obj\Debug\netcoreapp2.2\Project.API.AssemblyInfo.cs
 E:\Project\Project.API\obj\Debug\netcoreapp2.2\Project.API.RazorTargetAssemblyInfo.cache
 E:\Project\Project.API\obj\Debug\netcoreapp2.2\Project.API.dll
 E:\Project\Project.API\obj\Debug\netcoreapp2.2\Project.API.pdb
+E:\Interest\Project.API\bin\Debug\netcoreapp2.2\Project.API.deps.json
+E:\Interest\Project.API\bin\Debug\netcoreapp2.2\Project.API.runtimeconfig.json
+E:\Interest\Project.API\bin\Debug\netcoreapp2.2\Project.API.runtimeconfig.dev.json
+E:\Interest\Project.API\bin\Debug\netcoreapp2.2\Project.API.dll
+E:\Interest\Project.API\bin\Debug\netcoreapp2.2\Project.API.pdb
+E:\Interest\Project.API\obj\Debug\netcoreapp2.2\Project.API.csprojAssemblyReference.cache
+E:\Interest\Project.API\obj\Debug\netcoreapp2.2\Project.API.csproj.CoreCompileInputs.cache
+E:\Interest\Project.API\obj\Debug\netcoreapp2.2\Project.API.RazorAssemblyInfo.cache
+E:\Interest\Project.API\obj\Debug\netcoreapp2.2\Project.API.RazorAssemblyInfo.cs
+E:\Interest\Project.API\obj\Debug\netcoreapp2.2\Project.API.AssemblyInfoInputs.cache
+E:\Interest\Project.API\obj\Debug\netcoreapp2.2\Project.API.AssemblyInfo.cs
+E:\Interest\Project.API\obj\Debug\netcoreapp2.2\Project.API.RazorTargetAssemblyInfo.cache
+E:\Interest\Project.API\obj\Debug\netcoreapp2.2\Project.API.dll
+E:\Interest\Project.API\obj\Debug\netcoreapp2.2\Project.API.pdb

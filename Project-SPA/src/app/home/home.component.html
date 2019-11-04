@@ -1,3 +1,19 @@
-<p>
-  home works!
-</p>
+<div >
+  <br />
+
+  <p>
+      we are <strong>ARGON</strong> and we don't care!
+      what about you?
+  </p>
+
+  <button  type="button" class="btn btn-success" (click)="registerMode()">Get Started</button>
+<div>
+    <div *ngIf="register" class="container">
+        <div class="row justify-content-center">
+          <div class="col-6">
+            <app-register (cancelRegister)="cancelRegisterMode($event)"></app-register>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

@@ -12497,11 +12497,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Project\\Project.API\\Project.API.csproj",
+      "projectUniqueName": "E:\\Interest\\Project.API\\Project.API.csproj",
       "projectName": "Project.API",
-      "projectPath": "E:\\Project\\Project.API\\Project.API.csproj",
+      "projectPath": "E:\\Interest\\Project.API\\Project.API.csproj",
       "packagesPath": "C:\\Users\\Orkhan\\.nuget\\packages\\",
-      "outputPath": "E:\\Project\\Project.API\\obj\\",
+      "outputPath": "E:\\Interest\\Project.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",

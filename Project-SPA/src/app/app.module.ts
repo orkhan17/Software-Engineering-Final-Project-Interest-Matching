@@ -14,6 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { MemberComponent } from './member/member.component';
 import { MessageComponent } from './message/message.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
    declarations: [
@@ -21,7 +22,8 @@ import { AuthGuard } from './_guards/auth.guard';
       NavComponent,
       HomeComponent,
       MemberComponent,
-      MessageComponent
+      MessageComponent,
+      RegisterComponent
    ],
    imports: [
       BrowserModule,

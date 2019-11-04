@@ -6,10 +6,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
+  register = false;
   constructor() { }
 
   ngOnInit() {
+  }
+
+  registerMode() {
+    this.register = ! this.register;
+  }
+
+  cancelRegisterMode(register: boolean) {
+    this.register = register;
   }
 
 }
