@@ -9,6 +9,8 @@ namespace Project.API.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<AccountForRegisterDto, Account>().ReverseMap();
+            CreateMap<AccountToReturnDto, Account>().ReverseMap();
+            CreateMap<AccountForUpdateDto, Account>().ReverseMap();
         }
     }
 }

@@ -42,6 +42,8 @@ namespace Project.API
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddAutoMapper();
             services.AddScoped<IAuthRepository, AuthRepository>();  
+            services.AddScoped<IAccountRepository, AccountRepository>();  
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer( options => {
                     options.TokenValidationParameters = new TokenValidationParameters
