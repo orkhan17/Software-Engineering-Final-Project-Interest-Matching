@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Project.API.Models
 {
@@ -13,6 +14,9 @@ namespace Project.API.Models
         public string Gender { get; set; }
         public DateTime Birth_date { get; set; }
         public DateTime Created_date { get; set; }
-        public string Last_active { get; set; }
+        public DateTime Last_active { get; set; }
+        public ICollection<Music_type_account> Accounts { get; set; }
+        public ICollection<Post> Posts { get; set; }
+
     }
 }

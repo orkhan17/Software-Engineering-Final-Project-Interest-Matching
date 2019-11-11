@@ -1,0 +1,60 @@
+
+#content{
+	width:600px;
+	background-color:#e5d8bf;
+	margin:auto;
+	border-radius:10px;
+	box-shadow:5px 5px 5px 10px;
+	margin-top:50px;
+	margin-bottom:50px;
+	padding:50px;
+}
+#question{
+	font:normal 2em Arial;
+	color:#396362;
+}
+.answer{
+	font: normal 1.2em Arial;
+	color:#396362;
+}
+.myButton {
+	background-color:#1f6650;
+	border-radius:28px;
+	border:1px solid #1f6650;
+	display:inline;
+	cursor:pointer;
+	color:#eafbea;
+	font: normal 17px Arial;
+	padding:16px 31px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #2f6627;
+	margin-left:75%;
+	
+}
+.myButton:hover {
+	background-color:#eafbea;
+	color:#1f6650;
+	text-decoration:none;
+}
+.myButton:active {
+	background-color:#e3e7f1;
+	text-decoration:none;
+}
+select {
+background-position:300px;
+width:200px;
+padding:12px;
+margin-top:8px;
+font:normal 1.5em Arial;
+border-radius:5px;
+background-color:#A2AB58;
+color:#470938;
+font-size:20px;
+-webkit-appearance:none;
+box-shadow:inset 0 0 10px 0 rgba(0,0,0,0.6);
+outline:none;
+display:inline;
+}
+
+
+

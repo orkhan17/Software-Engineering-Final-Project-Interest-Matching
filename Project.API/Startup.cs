@@ -43,7 +43,7 @@ namespace Project.API
             services.AddAutoMapper();
             services.AddScoped<IAuthRepository, AuthRepository>();  
             services.AddScoped<IAccountRepository, AccountRepository>();  
-
+            services.AddScoped<IPostRepository, PostRepository>();  
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer( options => {
                     options.TokenValidationParameters = new TokenValidationParameters

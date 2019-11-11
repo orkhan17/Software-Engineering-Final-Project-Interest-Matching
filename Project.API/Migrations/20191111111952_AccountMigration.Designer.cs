@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Project.API.Data;
 
 namespace Project.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20191111111952_AccountMigration")]
+    partial class AccountMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,20 +91,6 @@ namespace Project.API.Migrations
                     b.HasIndex("AccountId");
 
                     b.ToTable("Posts");
-                });
-
-            modelBuilder.Entity("Project.API.Models.Visited_profile", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("AccountId");
-
-                    b.Property<int>("Following_AccountId");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Visited_profiles");
                 });
 
             modelBuilder.Entity("Project.API.Models.Music_type_account", b =>

@@ -11,6 +11,6 @@ namespace Project.API.DTOs
         public string Gender { get; set; }
         public DateTime Birth_date { get; set; }
         public DateTime Created_date { get; set; }
-        public string Last_active { get; set; }
+        public DateTime Last_active { get; set; }
     }
 }

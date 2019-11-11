@@ -15,6 +15,8 @@ import { MemberComponent } from './member/member.component';
 import { MessageComponent } from './message/message.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { RegisterComponent } from './register/register.component';
+import { PreferenceComponent } from './preference/preference.component';
+import { AccountService } from './_services/account.service';
 
 @NgModule({
    declarations: [
@@ -23,7 +25,8 @@ import { RegisterComponent } from './register/register.component';
       HomeComponent,
       MemberComponent,
       MessageComponent,
-      RegisterComponent
+      RegisterComponent,
+      PreferenceComponent
    ],
    imports: [
       BrowserModule,
@@ -33,6 +36,7 @@ import { RegisterComponent } from './register/register.component';
    ],
    providers: [
       AuthService,
+      AccountService,
       ErrorInterceptorProvider,
       AlertifyService,
       AuthGuard

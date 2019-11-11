@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -80,5 +81,48 @@ namespace Project.API.Controllers
             return BadRequest();
              
         }
+
+        [AllowAnonymous]
+        [HttpGet("music_types")]
+        public async Task<IEnumerable<Music_type>> GetMusicType()
+        {
+            var musics = await _repo.GetMusicType();
+            return musics;
+        }
+
+        [HttpGet("music_types/{id}")]
+        public async Task<Music_type> GetMusicType(int id)
+        {
+            var musics = await _repo.GetMusicType(id);
+            return musics;
+        }
+
+        [AllowAnonymous]
+        [HttpPost("{userid}/music_types/{musicid}")]
+        public async Task<IActionResult> AddMusicType(int userid, int musicid)
+        {
+            /*if(userid != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+*/
+            var music = await _repo.GetMusicType(musicid);
+
+            if(music == null)
+                return BadRequest("There is not a music type");
+            
+            var account_music = await _repo.AccountMusic(userid,musicid);
+            if(account_music != null)
+                return BadRequest("It is already added");
+
+            Music_type_account mta = new Music_type_account();
+            mta.Account_Id = userid;
+            mta.Music_type_id = musicid;
+            _repo.Add(mta);
+            if(await _repo.SaveAll())
+                return NoContent();
+
+            throw new Exception($"Adding music preference failed on save");
+        }
+
+
     }
 }

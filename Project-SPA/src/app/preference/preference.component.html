@@ -1,0 +1,32 @@
+
+			<div id="first">
+			
+			</div>
+			
+		<div id="content">
+			<p id="question">Choose your favorite music genres</p>
+		<form (ngSubmit)="save()">
+			<select   (change)="onChange1($event)">
+					<option *ngFor="let music of musics" value={{music.id}}>{{music.type}}</option>
+					
+			</select>
+			<br/>
+			<br/>
+			<select (change)="onChange2($event)">
+				<option *ngFor="let music of musics" value={{music.id}}>{{music.type}}</option>
+			</select>
+			<br/>
+			<br/>
+			<select (change)="onChange3($event)">
+				<option *ngFor="let music of musics" value={{music.id}}>{{music.type}}</option>
+			</select>
+			<br/>
+			<br/>
+			<button   type="submit" class="myButton">Save</button>
+			<button   class="myButton" [routerLink]="['/member']">Next</button>
+		</form>
+			<div>
+		</div>
+
+		
+	
