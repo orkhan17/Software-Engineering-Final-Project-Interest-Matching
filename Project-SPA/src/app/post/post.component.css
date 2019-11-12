@@ -1,0 +1,48 @@
+#gencontainer {
+    margin: auto;
+    width: 60%;
+    background: #273447;
+    box-shadow: 0 6px 20px 0 #232931, 0 6px 20px 0 #232931;
+    border-radius: 20px;
+    padding: 0,0,100px,0;
+}
+
+iframe {
+    width: 100%;
+}
+
+#container {
+    width: 100%;
+}
+
+
+/* #like {}
+
+#comment {}
+
+#share {}
+
+#date {} */
+
+button {
+    font-size: 65%;
+    color: #f9f9f9;
+    font-weight: bold;
+    background-color: #42c7e6;
+    border: 0;
+    height: 20px;
+    border-radius: 50px;
+    outline: none;
+    transition: 0.2s;
+    width: 50%;
+}
+
+button:hover {
+    background-color: #94fc13;
+}
+
+label {
+    color: #42c7e6;
+    width: 100%;
+    word-wrap: break-word;
+}

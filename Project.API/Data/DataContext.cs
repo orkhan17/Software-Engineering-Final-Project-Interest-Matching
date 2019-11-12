@@ -13,6 +13,7 @@ namespace Project.API.Data
         public DbSet<Post> Posts { get; set; } 
         public DbSet<Visited_profile> Visited_profiles { get; set; } 
 
+        public DbSet<Post_Like> Post_Likes { get; set; } 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Music_type_account>()

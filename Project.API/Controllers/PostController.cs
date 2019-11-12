@@ -14,7 +14,7 @@ using System.Collections.Generic;
 
 namespace Project.API.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PostController : ControllerBase
@@ -32,12 +32,64 @@ namespace Project.API.Controllers
         [HttpPost("{userid}")]
         public async Task<IActionResult> AddPost(int userid, PostToAddDto postToAddDto)
         {
-            if(userid != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            /*if(userid != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
-                
+                */
             postToAddDto.AccountId = userid;
             var post = _mapper.Map<Post>(postToAddDto);
             _repo.Add(post);
+            if(await _repo.SaveAll())
+                return NoContent();
+
+            throw new Exception($"Adding music preference failed on save");
+        }
+
+        [HttpPost("{userid}/like/{postid}")]
+        public async Task<IActionResult> like(int userid, int postid)
+        {
+          /*  if(userid != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+            */
+            var account = await _repo.GetAccount(userid);
+
+            if(account == null) 
+                return BadRequest("There is not a user");
+
+            var post = await _repo.GetPost(postid);
+
+            if(post == null) 
+                return BadRequest("There is not a post");
+            
+            var like = await _repo.GetLike(userid,postid);
+            
+            if(like != null ) 
+                return BadRequest("Already liked");
+
+            Post_Like pt = new Post_Like();
+            pt.AccountId = userid;
+            pt.Post_id = postid;
+            _repo.Add(pt);
+            if(await _repo.SaveAll())
+                return NoContent();
+
+            throw new Exception($"Adding music preference failed on save");
+        }
+
+        [HttpPost("{userid}/visit/{otheraccountid}")]
+        public async Task<IActionResult> VisitProfile(int userid, int otheraccountid)
+        {
+            /*if(userid != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+                */
+            var user1 = await _repo.GetAccount(userid);
+            var user2 = await _repo.GetAccount(otheraccountid);
+            if(user1 == null || user2 == null)
+                return BadRequest("There is not a user");
+            
+            Visited_profile vp = new Visited_profile();
+            vp.AccountId = userid;
+            vp.Following_AccountId = otheraccountid;
+            _repo.Add(vp);
             if(await _repo.SaveAll())
                 return NoContent();
 
@@ -56,6 +108,27 @@ namespace Project.API.Controllers
         {
             var post = await _repo.GetPost(id);
             return Ok(post);
+        }
+
+        [HttpGet("{id}/posts")]
+        public async Task<IActionResult> GetUuserPosts(int id)
+        {
+            var posts = await _repo.GetPosts();
+            posts = posts.Where(i => i.AccountId==id);
+
+            var result = from post in posts
+                    join acc in _context.Accounts on post.AccountId equals acc.Id
+                    select new
+                    {
+                        AccountId = post.AccountId,
+                        Name = acc.Name,
+                        Text = post.Text,
+                        Link = post.Video_link,
+                        Date = post.Created_date
+                    };
+            result = result.OrderByDescending(i => i.Date);
+            return Ok(result);
+
         }
 
 
@@ -119,10 +192,13 @@ namespace Project.API.Controllers
 
             var result = from ap in account_percentage
                     join post in _context.Posts on ap.Id equals post.AccountId
+                    join acc in _context.Accounts on post.AccountId equals acc.Id
                     where post.Created_date > dateCriteria
                     select new
                     {
                         AccountId = post.AccountId,
+                        PostId = post.Id,
+                        Name = acc.Name,
                         Text = post.Text,
                         Link = post.Video_link,
                         Date = post.Created_date

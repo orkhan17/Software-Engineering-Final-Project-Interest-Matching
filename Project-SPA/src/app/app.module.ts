@@ -17,7 +17,11 @@ import { AuthGuard } from './_guards/auth.guard';
 import { RegisterComponent } from './register/register.component';
 import { PreferenceComponent } from './preference/preference.component';
 import { AccountService } from './_services/account.service';
-
+import { DeleteProfileComponent } from './delete-profile/delete-profile.component';
+import { PostComponent } from './post/post.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { SharePostComponent } from './share-post/share-post.component';
+import { MypostsComponent } from './myposts/myposts.component';
 @NgModule({
    declarations: [
       AppComponent,
@@ -26,7 +30,12 @@ import { AccountService } from './_services/account.service';
       MemberComponent,
       MessageComponent,
       RegisterComponent,
-      PreferenceComponent
+      PreferenceComponent,
+      DeleteProfileComponent,
+      PostComponent,
+      EditProfileComponent,
+      SharePostComponent,
+      MypostsComponent
    ],
    imports: [
       BrowserModule,

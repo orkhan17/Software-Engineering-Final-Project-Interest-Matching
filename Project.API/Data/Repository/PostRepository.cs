@@ -57,5 +57,17 @@ namespace Project.API.Data.Repository
         {
             return await _context.SaveChangesAsync() > 0;
         }
+
+        public async Task<Account> GetAccount(int id)
+        {
+            var user = await _context.Accounts.FirstOrDefaultAsync(a => a.Id == id);
+            return user;
+        }
+
+        public async Task<Post_Like> GetLike(int userid, int postid)
+        {
+            var like = await _context.Post_Likes.FirstOrDefaultAsync( l => l.AccountId==userid && l.Post_id==postid);
+            return like;
+        }
     }
 }

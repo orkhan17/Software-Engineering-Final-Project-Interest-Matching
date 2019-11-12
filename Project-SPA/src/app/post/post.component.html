@@ -1,0 +1,28 @@
+
+<div id="gencontainer" *ngFor="let p of post" class="mb-4">
+    <div>
+        <button (click)="savevisit(p.accountId)"><a><label for="">{{p.name}}</label></a></button>
+    </div>
+    <div id="heading">
+        <label for="" id="headingLabel">{{p.text}}</label>
+    </div>
+    <iframe [class.thumbnail]="thumbnail" [src]='sanitizer.bypassSecurityTrustResourceUrl(p.link)' width="560" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen
+      allowfullscreen></iframe> 
+      <div id="container" class="row">
+        <div id="like" class="col-md-3">
+            <button (click)="like(p.postId, p.accountId)">Like</button>
+            <label for="">num</label>
+        </div>
+        <div id="comment" class="col-md-3">
+            <button (click)="savevisit(p.accountId)" >Comment</button>
+            <label for="">num</label>
+        </div>
+        <div id="share" class="col-md-3">
+            <button (click)="savevisit(p.accountId)" >Share</button>
+            <label for="">num</label>
+        </div>
+        <div id="date" class="col-md-3">
+            <label for="">date</label>
+        </div>
+    </div>
+</div>

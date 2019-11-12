@@ -1,0 +1,9 @@
+<div>
+  <form #loginForm="ngForm"  (ngSubmit)="sharepost()">
+      <!-- <label>your reason:</label> -->
+      <input placeholder="Heading" type="text" name="text" [(ngModel)]="model.Text">
+      <!-- <label>enter password:</label> -->
+      <input placeholder="Enter desired link" type="video_link" name="video" [(ngModel)]="model.Video_link">
+      <button type="submit">Share</button>
+  </form>
+</div>

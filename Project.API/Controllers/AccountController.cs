@@ -13,7 +13,6 @@ using Project.API.Models;
 
 namespace Project.API.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
@@ -97,7 +96,6 @@ namespace Project.API.Controllers
             return musics;
         }
 
-        [AllowAnonymous]
         [HttpPost("{userid}/music_types/{musicid}")]
         public async Task<IActionResult> AddMusicType(int userid, int musicid)
         {
@@ -122,6 +120,7 @@ namespace Project.API.Controllers
 
             throw new Exception($"Adding music preference failed on save");
         }
+
 
 
     }

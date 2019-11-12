@@ -91,6 +91,20 @@ namespace Project.API.Migrations
                     b.ToTable("Posts");
                 });
 
+            modelBuilder.Entity("Project.API.Models.Post_Like", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AccountId");
+
+                    b.Property<int>("Post_id");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Post_Likes");
+                });
+
             modelBuilder.Entity("Project.API.Models.Visited_profile", b =>
                 {
                     b.Property<int>("Id")
