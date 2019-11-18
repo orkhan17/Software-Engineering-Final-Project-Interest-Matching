@@ -4,9 +4,7 @@
         <!-- <img id="logo" src="logoblue.png" alt="logo"> -->
     </div>
     
-    <div class="col-md-6" id="search" *ngIf="loggedIn()">
-        <input type="search" name="" placeholder="Search about users and posts...">
-    </div>
+    
     <div class="col-md-2" id="name" *ngIf="loggedIn()">
         <div class="dropdown">
             <button class="dropbtn">Welcome {{authService.decodedToken?.unique_name | titlecase }}</button>

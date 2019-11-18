@@ -1,7 +1,11 @@
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Project.API.Data.IRepository;
 using Project.API.Models;
 
@@ -69,5 +73,14 @@ namespace Project.API.Data.Repository
             var like = await _context.Post_Likes.FirstOrDefaultAsync( l => l.AccountId==userid && l.Post_id==postid);
             return like;
         }
+
+        public async Task<Follower> GetFollow(int userid, int followingid)
+        {
+            var follow = await _context.Followers.FirstOrDefaultAsync( l => l.AccountId==userid && l.Following_AccountId==followingid);
+            return follow;
+        }
+
+
+        
     }
 }

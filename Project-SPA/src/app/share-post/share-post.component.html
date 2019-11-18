@@ -1,9 +1,29 @@
+
+
 <div>
   <form #loginForm="ngForm"  (ngSubmit)="sharepost()">
-      <!-- <label>your reason:</label> -->
-      <input placeholder="Heading" type="text" name="text" [(ngModel)]="model.Text">
-      <!-- <label>enter password:</label> -->
-      <input placeholder="Enter desired link" type="video_link" name="video" [(ngModel)]="model.Video_link">
-      <button type="submit">Share</button>
+      <div id="share">
+          <input placeholder="Enter desired link" type="text" type="video_link" name="video" [(ngModel)]="model.Video_link">
+          <div id="textdescription"><textarea name="" placeholder="Write a description..." id="description" rows="10"
+            name="text" [(ngModel)]="model.Text"></textarea>
+              <button type="submit">Share</button></div>
+      </div>
+    </form>
+    <form>
+      <div id="youtube">
+        <input placeholder="Enter keywork or link" id="word" value="word" type="text" class="mb-5">
+        <button (click)="searchkeyword()" class="mb-10">Search on Youtube</button>
+        <button (click)="searchplaylist()"  class="mb-10">Search Playlist</button>
+        
+      <div *ngFor="let p of post">
+        <hr/>
+      <div id="heading" >
+          <label for="" id="headingLabel" >{{p.title}}</label>
+      </div>
+      <iframe [class.thumbnail]="thumbnail" [src]='sanitizer.bypassSecurityTrustResourceUrl(p.link)' width="560" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen
+        allowfullscreen></iframe> 
+       
+      </div>
+      </div>
   </form>
 </div>

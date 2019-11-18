@@ -4,6 +4,7 @@ import { AlertifyService } from '../_services/alertify.service';
 import { AuthService } from '../_services/auth.service';
 import { Post } from '../_models/Post';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Search } from '../_models/search';
 
 @Component({
   selector: 'app-post',
@@ -18,7 +19,7 @@ export class PostComponent implements OnInit {
               private authService: AuthService, public sanitizer: DomSanitizer) { }
 
   ngOnInit() {
-    this.getposts();
+     this.getposts();
   }
 
   getposts() {
@@ -45,6 +46,14 @@ export class PostComponent implements OnInit {
       this.alertify.error(error);
     });
   }
+
+ /* searchkeyword(word) {
+    this.accountService.getsearch(word).subscribe((result: Post[]) => {
+      this.search = result;
+    }, error => {
+      this.alertify.error(error);
+    });
+  } */
 
 
 }

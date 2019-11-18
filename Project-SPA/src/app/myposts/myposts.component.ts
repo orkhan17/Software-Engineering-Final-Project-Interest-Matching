@@ -29,6 +29,14 @@ export class MypostsComponent implements OnInit {
     });
 }
 
+like(id) {
+  this.accountService.like(this.authService.decodedToken.nameid, id).subscribe(next => {
+    this.alertify.success('Liked successfully');
+  }, error => {
+    this.alertify.error(error);
+  });
+}
+
 
 
 

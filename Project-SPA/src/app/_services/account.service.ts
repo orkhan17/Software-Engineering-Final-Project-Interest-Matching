@@ -22,6 +22,13 @@ constructor(private http: HttpClient) { }
   getposts(userid: number) {
     return this.http.get<Post[]>(this.baseUrlpost + 'visit/' + userid);
   }
+  getsearch(word: string) {
+    return this.http.get<Post[]>(this.baseUrlpost + 'search/' + word);
+  }
+  getplaylist(link: string) {
+    return this.http.get<Post[]>(this.baseUrlpost + 'playlist/' + link);
+  }
+
   getuserposts(userid: number) {
     return this.http.get<Post[]>(this.baseUrlpost + userid + '/posts');
   }

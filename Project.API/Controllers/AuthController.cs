@@ -39,9 +39,6 @@ namespace Project.API.Controllers
 
             var createdUser = await _repo.Register(accountCreate, accountForRegisterDto.Password);
 
-            //var userToReturn = _mapper.Map<UserForDetailedDto>(createdUser);
-
-           // return CreatedAtRoute("GetUser", new {controller = "Users", id = userCreate.Id}, userToReturn);
             return Ok();
         }
 

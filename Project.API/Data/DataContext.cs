@@ -12,7 +12,7 @@ namespace Project.API.Data
         public DbSet<Music_type> Music_types { get; set; } 
         public DbSet<Post> Posts { get; set; } 
         public DbSet<Visited_profile> Visited_profiles { get; set; } 
-
+        public DbSet<Follower> Followers { get; set; } 
         public DbSet<Post_Like> Post_Likes { get; set; } 
         protected override void OnModelCreating(ModelBuilder builder)
         {

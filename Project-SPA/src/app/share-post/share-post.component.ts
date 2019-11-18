@@ -3,6 +3,8 @@ import { AccountService } from '../_services/account.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../_services/auth.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Post } from '../_models/Post';
 
 @Component({
   selector: 'app-share-post',
@@ -11,8 +13,11 @@ import { AuthService } from '../_services/auth.service';
 })
 export class SharePostComponent implements OnInit {
   model: any = {};
+  post: Post[];
+  safeUrl: any;
+  safeSrc: SafeResourceUrl;
   constructor(private accountService: AccountService, private alertify: AlertifyService, private router: Router,
-              private authService: AuthService) { }
+              private authService: AuthService, public sanitizer: DomSanitizer) { }
 
   ngOnInit() {
   }
@@ -25,4 +30,23 @@ export class SharePostComponent implements OnInit {
       this.router.navigate(['/myposts']);
     });
   }
+
+  searchkeyword() {
+    const word = ((document.getElementById('word') as HTMLInputElement).value);
+    this.accountService.getsearch(word).subscribe((result: Post[]) => {
+      this.post = result;
+    }, error => {
+      this.alertify.error(error);
+    });
+  }
+
+  searchplaylist() {
+    const word = ((document.getElementById('word') as HTMLInputElement).value);
+    this.accountService.getplaylist(word).subscribe((result: Post[]) => {
+      this.post = result;
+    }, error => {
+      this.alertify.error(error);
+    });
+  }
+
 }

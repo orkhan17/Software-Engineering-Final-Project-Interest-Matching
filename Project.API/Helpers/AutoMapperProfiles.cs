@@ -11,6 +11,7 @@ namespace Project.API.Helpers
             CreateMap<AccountForRegisterDto, Account>().ReverseMap();
             CreateMap<AccountToReturnDto, Account>().ReverseMap();
             CreateMap<AccountForUpdateDto, Account>().ReverseMap();
+            CreateMap<PostForUpdateDto, Post>().ReverseMap();
             CreateMap<PostToAddDto, Post>().ReverseMap();
         }
     }

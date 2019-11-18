@@ -12,6 +12,7 @@
     transition: 0.3s;
     height: 75px;
     padding: 10px 0 0 0;
+    outline: none;
     /* background: yellow; */
     /* border: 1px solid saddlebrown; */
 }

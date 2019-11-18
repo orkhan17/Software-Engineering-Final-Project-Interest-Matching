@@ -11,10 +11,12 @@ using Project.API.Models;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Configuration;
+using Newtonsoft.Json;
+using System.Net.Http;
 
 namespace Project.API.Controllers
 {
-    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PostController : ControllerBase
@@ -35,6 +37,7 @@ namespace Project.API.Controllers
             /*if(userid != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
                 */
+            postToAddDto.Video_link = postToAddDto.Video_link.Replace("watch?v=","embed/");
             postToAddDto.AccountId = userid;
             var post = _mapper.Map<Post>(postToAddDto);
             _repo.Add(post);
@@ -75,6 +78,37 @@ namespace Project.API.Controllers
             throw new Exception($"Adding music preference failed on save");
         }
 
+        [HttpPost("{userid}/follow/{followingid}")]
+        public async Task<IActionResult> Follow(int userid, int followingid)
+        {
+            if(userid != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+            
+            var account1 = await _repo.GetAccount(userid);
+
+            if(account1 == null) 
+                return BadRequest("There is not a user");
+
+            var account2 = await _repo.GetAccount(followingid);
+
+            if(account2 == null) 
+                return BadRequest("There is not a user to follow");
+            
+            var follow = await _repo.GetFollow(userid,followingid);
+            
+            if(follow != null ) 
+                return BadRequest("Already followed");
+
+            Follower f = new Follower();
+            f.AccountId = userid;
+            f.Following_AccountId = followingid;
+            _repo.Add(f);
+            if(await _repo.SaveAll())
+                return NoContent();
+
+            throw new Exception($"Adding music preference failed on save");
+        }
+
         [HttpPost("{userid}/visit/{otheraccountid}")]
         public async Task<IActionResult> VisitProfile(int userid, int otheraccountid)
         {
@@ -103,6 +137,129 @@ namespace Project.API.Controllers
             return Ok(posts);
         }
 
+        [HttpDelete("{id}/deletepost/{postid}")]
+        public async Task<IActionResult> DeletePost(int id, int postid)
+        {
+            if(id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var postFromRepo = await _repo.GetPost(postid);
+            if(postFromRepo != null)
+            {
+                 _repo.Delete(postFromRepo);
+            }
+            if(await _repo.SaveAll()) {
+                return Ok();
+            }
+            return BadRequest();
+             
+        }
+
+        [HttpPut("{id}/update/{postid}")]
+        public async Task<IActionResult> UpdatePost(int id, int postid, PostForUpdateDto postForUpdateDto)
+        {
+            if(id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+            postForUpdateDto.Video_link = postForUpdateDto.Video_link.Replace("watch?v=","embed/");
+            var postFromRepo = await _repo.GetPost(postid);
+
+            _mapper.Map(postForUpdateDto, postFromRepo);
+
+            if(await _repo.SaveAll())
+            {
+                return Ok(postFromRepo);
+            }
+               
+            
+            throw new Exception($"Updating user {id} failed on save");
+        }
+
+        [HttpGet("search/{word}")]
+        public async Task<IActionResult> GetSearch(string word)
+        {
+           
+            var parameters = new Dictionary<string, string>
+            {
+                ["key"] = "AIzaSyDjWtkPa1sYU75Wq3gfaUbVV_U0QW8UF6o",
+                ["part"] = "snippet",
+                ["q"] = word,
+                ["maxResults"] = "7"
+                
+            };
+
+            var baseUrl = "https://www.googleapis.com/youtube/v3/search?";
+            var fullUrl = MakeUrlWithQuery(baseUrl, parameters);
+
+            dynamic result = await new HttpClient().GetStringAsync(fullUrl);
+            result = JsonConvert.DeserializeObject(result);
+            List<SearchToReturn> st = new List<SearchToReturn>();
+            if (result != null)
+            {
+                foreach (dynamic item in result.items)
+                {
+                    /*st.Title = item.snippet.title;
+                    st.Description = item.snippet.description;
+                    st.Link = item.snippet.resourceId.videoId;*/
+                    st.Add(new SearchToReturn { Title = item.snippet.title,
+                                                Description = item.snippet.description,
+                                                Link = "https://www.youtube.com/embed/"+item.id.videoId});
+                }
+                return Ok(st);
+            }
+
+            return default(dynamic);
+        }
+
+        [HttpGet("playlist/{link}")]
+        public async Task<IActionResult> GetPlayList(string link)
+        {
+           var parameters = new Dictionary<string, string>
+            {
+                ["key"] = "AIzaSyDjWtkPa1sYU75Wq3gfaUbVV_U0QW8UF6o",
+                ["playlistId"] = link,
+                ["part"] = "snippet",
+                ["fields"] = "items/snippet(title, description, resourceId)",
+                ["maxResults"] = "50"
+            };
+
+           
+
+            var baseUrl = "https://www.googleapis.com/youtube/v3/playlistItems?";
+            var fullUrl = MakeUrlWithQuery(baseUrl, parameters);
+
+            dynamic result = await new HttpClient().GetStringAsync(fullUrl);
+            result = JsonConvert.DeserializeObject(result);
+            List<SearchToReturn> st = new List<SearchToReturn>();
+            if (result != null)
+            {
+                foreach (dynamic item in result.items)
+                {
+                    /*st.Title = item.snippet.title;
+                    st.Description = item.snippet.description;
+                    st.Link = item.snippet.resourceId.videoId;*/
+                    st.Add(new SearchToReturn { Title = item.snippet.title,
+                                                Description = item.snippet.description,
+                                                Link = "https://www.youtube.com/embed/" + item.snippet.resourceId.videoId});
+                }
+                return Ok(st);
+                 
+            }
+
+            return default(dynamic);
+        }
+
+         private static string MakeUrlWithQuery(string baseUrl, 
+            IEnumerable<KeyValuePair<string, string>> parameters)
+        {
+            if (string.IsNullOrEmpty(baseUrl))
+                throw new ArgumentNullException(nameof(baseUrl));
+
+            if (parameters == null || parameters.Count() == 0)
+                return baseUrl;
+
+            return parameters.Aggregate(baseUrl,
+                (accumulated, kvp) => string.Format($"{accumulated}{kvp.Key}={kvp.Value}&"));
+        }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPost(int id)
         {
@@ -111,7 +268,7 @@ namespace Project.API.Controllers
         }
 
         [HttpGet("{id}/posts")]
-        public async Task<IActionResult> GetUuserPosts(int id)
+        public async Task<IActionResult> GetUserPosts(int id)
         {
             var posts = await _repo.GetPosts();
             posts = posts.Where(i => i.AccountId==id);
@@ -121,6 +278,7 @@ namespace Project.API.Controllers
                     select new
                     {
                         AccountId = post.AccountId,
+                        PostId = post.Id,
                         Name = acc.Name,
                         Text = post.Text,
                         Link = post.Video_link,
@@ -203,6 +361,13 @@ namespace Project.API.Controllers
                         Link = post.Video_link,
                         Date = post.Created_date
                     };
+
+           /* foreach(var p in result)
+            {
+                var like = await _repo.GetLike(id,p.PostId);
+                if(like != null ) p.Like = true;
+            }*/
+                
             return Ok(result);
 
 

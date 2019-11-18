@@ -8,19 +8,19 @@
       allowfullscreen></iframe> 
       <div id="container" class="row">
         <div id="like" class="col-md-3">
-            <button (click)="savevisit(p.accountId)">Like</button>
+            <button (click)="like(p.postId)">Like</button>
             <label for="">num</label>
         </div>
         <div id="comment" class="col-md-3">
-            <button (click)="savevisit(p.accountId)" >Comment</button>
+            <button  >Comment</button>
             <label for="">num</label>
         </div>
         <div id="share" class="col-md-3">
-            <button (click)="savevisit(p.accountId)" >Share</button>
+            <button>Share</button>
             <label for="">num</label>
         </div>
         <div id="date" class="col-md-3">
-            <label for="">date</label>
+            <label for="">{{p.date | timeAgo}}</label>
         </div>
     </div>
 </div>
