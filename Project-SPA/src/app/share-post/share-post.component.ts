@@ -49,4 +49,8 @@ export class SharePostComponent implements OnInit {
     });
   }
 
+  add(link) {
+    (document.getElementById('lk') as HTMLInputElement).value = link;
+  }
+
 }

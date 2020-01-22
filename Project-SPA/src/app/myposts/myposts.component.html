@@ -1,26 +1,26 @@
 
-<div id="gencontainer" *ngFor="let p of post" class="mb-4">
-    
-    <div id="heading">
-        <label for="" id="headingLabel">{{p.text}}</label>
+
+<div id="gencontainer" *ngFor="let p of post">
+    <div class="row" id="postinfo">
+        <div class="col-md-6" id="date">
+            <label for="">{{p.date | timeAgo}}</label>
+        </div>
+        
+    </div>
+    <div id="description">
+        <p for="">{{p.text}}</p>
     </div>
     <iframe [class.thumbnail]="thumbnail" [src]='sanitizer.bypassSecurityTrustResourceUrl(p.link)' width="560" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen
       allowfullscreen></iframe> 
-      <div id="container" class="row">
-        <div id="like" class="col-md-3">
-            <button (click)="like(p.postId)">Like</button>
-            <label for="">num</label>
+    <div id="container" class="row">
+        <div id="like" class="col-md-6">
+            <button (click)="like(p.postId, p.accountId)">Like</button>
+            <label for="">{{p.like}}</label>
         </div>
-        <div id="comment" class="col-md-3">
-            <button  >Comment</button>
-            <label for="">num</label>
+        <div id="follow" class="col-md-4">
+            <button id="deletepost" (click)="delete(p.postId)">Delete</button>
         </div>
-        <div id="share" class="col-md-3">
-            <button>Share</button>
-            <label for="">num</label>
-        </div>
-        <div id="date" class="col-md-3">
-            <label for="">{{p.date | timeAgo}}</label>
-        </div>
+       
     </div>
+    
 </div>

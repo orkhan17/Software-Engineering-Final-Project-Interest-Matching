@@ -15,6 +15,7 @@ namespace Project.API.Models
         public DateTime Birth_date { get; set; }
         public DateTime Created_date { get; set; }
         public DateTime Last_active { get; set; }
+        public int Status { get; set; }
         public ICollection<Music_type_account> Accounts { get; set; }
         public ICollection<Post> Posts { get; set; }
 

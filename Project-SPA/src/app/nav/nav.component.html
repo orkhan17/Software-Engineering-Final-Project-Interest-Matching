@@ -1,32 +1,29 @@
 
 <div id="container" class="row">
-    <div class="col-md-3" id="logo" [routerLink]="['post']">
-        <!-- <img id="logo" src="logoblue.png" alt="logo"> -->
-    </div>
     
     
-    <div class="col-md-2" id="name" *ngIf="loggedIn()">
-        <div class="dropdown">
-            <button class="dropbtn">Welcome {{authService.decodedToken?.unique_name | titlecase }}</button>
-            <div class="dropdown-content">
-                <a [routerLink]="['share-post']">Share Post</a>
-                <a [routerLink]="['myposts']">My Posts</a>
-                <a [routerLink]="['edit_profile']">Edit Profile</a>
-                <a [routerLink]="['delete_profile']">Delete Profile</a>
-                <a (click)="logout()">Log out</a>
-            </div>
-        </div>
+        <div class="dropdown " id="name" *ngIf="loggedIn()">
+            <ul class="topnav">
+                <li><a [routerLink]="['post']">Home</a></li>
+                <li><a id="following" [routerLink]="['following']">Following</a></li>
+                <li><a id="sharepost" [routerLink]="['share-post']">Share Post</a></li>
+                <li><a id="myposts" [routerLink]="['myposts']">My Posts</a></li>
+                <li><a id="edit-post" [routerLink]="['account']">Edit Posts</a></li>
+                <li><a [routerLink]="['edit_profile']">Edit Profile</a></li>
+                <li><a id="delete" [routerLink]="['delete_profile']">Delete Profile</a></li>
+                <li class="right"><a (click)="logout()">Log out</a></li>
+            </ul>
     </div>
-
-    <form #loginForm="ngForm" class="form-inline my-2 my-lg-0" (ngSubmit)="login()" *ngIf="!loggedIn()">
+<div class="logindiv">
+        <form #loginForm="ngForm" class="form-inline my-2 my-lg-0" (ngSubmit)="login()" *ngIf="!loggedIn()">
       <input class="form-control mr-sm-2" type="text" placeholder="username" name="username" 
-        required aria-label="Search" [(ngModel)]="model.Username">
+        id="username" required aria-label="Search" [(ngModel)]="model.Username">
       <input class="form-control mr-sm-2" type="password" placeholder="password" name="password" 
-        required aria-label="Search" [(ngModel)]="model.Password">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign In</button>
+      id="password" required aria-label="Search" [(ngModel)]="model.Password">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="btn">Sign In</button>
   </form>
-
-    <div class="col-md-1" *ngIf="loggedIn()">
-        <img id="profilePicture" src="assets/profilepic1.png" alt="profilePic">
-    </div>
 </div>
+
+
+</div> 
+

@@ -1,0 +1,4 @@
+e:\Interest\obj\Debug\netcoreapp2.2\Interest.csprojAssemblyReference.cache
+e:\Interest\obj\Debug\netcoreapp2.2\Interest.csproj.CoreCompileInputs.cache
+e:\Interest\obj\Debug\netcoreapp2.2\Interest.AssemblyInfoInputs.cache
+e:\Interest\obj\Debug\netcoreapp2.2\Interest.AssemblyInfo.cs

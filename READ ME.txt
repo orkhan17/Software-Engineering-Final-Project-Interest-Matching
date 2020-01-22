@@ -1,0 +1,29 @@
+For running the website follow the instructions which is below:
+
+Firstly download following programs:
+1. Download and install .NET SDK - https://dotnet.microsoft.com/download/dotnet-core/2.2 (.NET Core 2.2 - version should be downloaded)
+2. Download and install Node.js - https://nodejs.org/en/ (version does not matter)
+3. Download and install Visual Studio Code - https://code.visualstudio.com/ (version does not matter)
+
+After downloading them open Visual Studio Code and click 'File' section which is in the menu bar and click 'Open  Folder' section and 
+choose the folder which is named 'Interest'.
+
+To switch from powershell.exe to cmd.exe in terminal:
+1. Press Ctrl+Shift+P to show all commands.
+2. Type shell in the displayed text box to filter the list.
+3. Select Terminal: Select Default Shell.
+4. You will be prompted to Select your preferred terminal shell, you can change this later in your settings or follow the same process as we do now
+5. Select Command Prompt (cmd.exe)
+
+After opening code and switching to cmd.exe in 'Terminal' section which is in the menu bar and click 'New Terminal' section and in this terminal change directory to 
+'Project.API' (cd Project.API)
+After that in that terminal write following 'dotnet run' and hit enter.
+
+After create 'New Terminal' section and in this terminal change directory to 'Project-SPA' (cd Project-SPA)
+After that in that terminal write following 'npm install -g @angular/cli' and hit enter. (To download Angular CLI)
+In that terminal write following 'npm install --save-dev @angular-devkit/build-angular' and hit enter. (To download Angular dependencies)
+Finally, in that terminal write following 'ng serve' and hit enter.
+
+And open your browser and type 'http://localhost:4200' and you will see homepage of site.
+
+ 

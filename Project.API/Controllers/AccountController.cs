@@ -18,11 +18,13 @@ namespace Project.API.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IAccountRepository _repo;
+        private readonly IAuthRepository _repo1;
         private readonly IMapper _mapper;
-        public AccountController(IAccountRepository repo,IMapper mapper)
+        public AccountController(IAccountRepository repo,IMapper mapper, IAuthRepository repo1)
         {
             _mapper = mapper;
             _repo = repo;
+            _repo1 = repo1;
         }
 
         [HttpGet]
@@ -46,9 +48,6 @@ namespace Project.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(int id, AccountForUpdateDto accountForUpdateDto)
         {
-            if(id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
-                return Unauthorized();
-
             var accountFromRepo = await _repo.GetAccount(id);
 
             _mapper.Map(accountForUpdateDto, accountFromRepo);
@@ -63,13 +62,26 @@ namespace Project.API.Controllers
             throw new Exception($"Updating user {id} failed on save");
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        [HttpGet("{id}/user")]
+        public async Task<IActionResult> GetUser(int id)
         {
-            if(id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            var accountFromRepo = await _repo.GetAccount(id);
+            var accounttoupdate =  _mapper.Map<AccountForUpdateDto>(accountFromRepo);
+           return Ok(accounttoupdate);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id, DeleteDto deletedto)
+        {
+            /*if(id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+*/
+            var accountFromRepo = await _repo1.Login(deletedto.Username.ToLower(), deletedto.Password);
+
+            if (accountFromRepo == null)
                 return Unauthorized();
 
-            var accountFromRepo = await _repo.GetAccount(id);
+             accountFromRepo = await _repo.GetAccount(id);
             if(accountFromRepo != null)
             {
                  _repo.Delete(accountFromRepo);

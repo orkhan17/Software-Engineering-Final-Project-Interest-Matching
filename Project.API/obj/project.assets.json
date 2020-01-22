@@ -3028,6 +3028,18 @@
           }
         }
       },
+      "Selenium.WebDriver/3.14.0": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "10.0.3"
+        },
+        "compile": {
+          "lib/netstandard2.0/WebDriver.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/WebDriver.dll": {}
+        }
+      },
       "SQLitePCLRaw.bundle_green/1.1.12": {
         "type": "package",
         "dependencies": {
@@ -7939,6 +7951,25 @@
         "version.txt"
       ]
     },
+    "Selenium.WebDriver/3.14.0": {
+      "sha512": "hkNeyxU8S/cojFQfHg1R234R0GtYxJG1iJ403sRKiGSE/6mW3vHCvG3uUDwFqzoTfMNSChHymuSwsFbT1EAd6w==",
+      "type": "package",
+      "path": "selenium.webdriver/3.14.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net35/WebDriver.dll",
+        "lib/net35/WebDriver.xml",
+        "lib/net40/WebDriver.dll",
+        "lib/net40/WebDriver.xml",
+        "lib/net45/WebDriver.dll",
+        "lib/net45/WebDriver.xml",
+        "lib/netstandard2.0/WebDriver.dll",
+        "lib/netstandard2.0/WebDriver.xml",
+        "selenium.webdriver.3.14.0.nupkg.sha512",
+        "selenium.webdriver.nuspec"
+      ]
+    },
     "SQLitePCLRaw.bundle_green/1.1.12": {
       "sha512": "U5lZv+E0JBCG5uQngaRgyIAlbzIwRczb0m46XJfLGXovtfVOaMNRY/oGyKAJjdexVrfqLRd+JyopGMySpAZRGQ==",
       "type": "package",
@@ -12604,6 +12635,7 @@
       "Microsoft.EntityFrameworkCore.Design >= 3.0.0",
       "Microsoft.EntityFrameworkCore.Sqlite >= 2.2.6",
       "Microsoft.NETCore.App >= 2.2.0",
+      "Selenium.WebDriver >= 3.14.0",
       "System.Configuration.ConfigurationManager >= 4.6.0"
     ]
   },
@@ -12681,6 +12713,10 @@
             "target": "Package",
             "version": "[2.2.0, )",
             "autoReferenced": true
+          },
+          "Selenium.WebDriver": {
+            "target": "Package",
+            "version": "[3.14.0, )"
           },
           "System.Configuration.ConfigurationManager": {
             "target": "Package",

@@ -1,12 +1,13 @@
 <div >
   <br />
-
+ 
   <p style="color:powderblue;">
       we are <strong>ARGON</strong> and we don't care!
       what about you?
   </p>
 
-  <button  type="button" class="btn btn-success" (click)="registerMode()">Get Started</button>
+  <button  id="reg" type="button" class="btn btn-success" (click)="registerMode()">Get Started</button>
+ 
 <div>
     <div *ngIf="register" class="container">
         <div class="row justify-content-center">
@@ -17,20 +18,20 @@
       </div>
   </div>
 </div>
+
 <div>
-    <div id="gencontainer">
-        <div class="row" id="postinfo">
-            <div class="col-md-6" id="username">
-                <label for="">user</label>
-            </div>
-            <div class="col-md-6" id="date">
-                <label for="">date</label>
-            </div>
-        </div>
-        <div id="description">
-            <p for="">Say wrote his first piece – a piano sonata – in 1984, at the age of fourteen, when he was a student at the Conservatory of his home town Ankara. It was followed, in this early phase of his development, by several chamber works without an opus
-                number, including Schwarze Hymnen for violin and piano and a guitar concerto.</p>
-        </div>
-        <iframe width="853" height="480" src="https://www.youtube.com/embed/fzQbI58BzBo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div>
+  <form >
+  <div id="youtube">
+    
+  <div *ngFor="let p of post" id="gencontainer" class="mb-2">
+  <div id="heading" class="row" >
+      <p for="" id="headingLabel" >{{p.text}}</p>
+  </div>
+      <iframe [class.thumbnail]="thumbnail" [src]='sanitizer.bypassSecurityTrustResourceUrl(p.video_link)' width="560" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> 
+  </div>
+  </div>
+</form>
 </div>
+
+
+

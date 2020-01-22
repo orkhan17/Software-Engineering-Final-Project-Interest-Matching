@@ -81,9 +81,9 @@ namespace Project.API.Controllers
         [HttpPost("{userid}/follow/{followingid}")]
         public async Task<IActionResult> Follow(int userid, int followingid)
         {
-            if(userid != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+           /* if(userid != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
-            
+            */
             var account1 = await _repo.GetAccount(userid);
 
             if(account1 == null) 
@@ -137,11 +137,61 @@ namespace Project.API.Controllers
             return Ok(posts);
         }
 
+        [HttpGet("5post")]
+        public async Task<IActionResult> Get5Posts()
+        {
+            var posts = await _repo.Get5Posts();
+            posts = posts.AsEnumerable().Take(5);
+            return Ok(posts);
+        }
+
+        [HttpGet("{userid}/following")]
+        public async Task<IActionResult> GetFollowing(int userid)
+        {
+            var followings = await _repo.Getfollowing(userid);
+            var result = from f in followings
+                    join post in _context.Posts on f.Following_AccountId equals post.AccountId
+                    join acc in _context.Accounts on f.Following_AccountId equals acc.Id
+                    where post.Status == 1 && acc.Status == 1
+                    select new
+                    {
+                        AccountId = post.AccountId,
+                        PostId = post.Id,
+                        Name = acc.Name,
+                        Text = post.Text,
+                        Link = post.Video_link,
+                        Date = post.Created_date
+                    };
+            var likes = from pl in _context.Post_Likes
+                        join ac in _context.Accounts on pl.AccountId equals ac.Id
+                        group pl by pl.Post_id into g
+                        select new {
+                            Post = g.Key,
+                            Likes = g.Count()
+                        };
+
+            var res = from r in result
+                    join like in likes on r.PostId equals like.Post into Details
+                    from m in Details.DefaultIfEmpty()
+                    select new
+                    {
+                        AccountId = r.AccountId,
+                        PostId = r.PostId,
+                        Name = r.Name,
+                        Text = r.Text,
+                        Link = r.Link,
+                        Date = r.Date,
+                        Like = m?.Likes ?? 0
+                    };
+            res = res.OrderByDescending(o => o.Date);
+            return Ok(res);
+        }
+
         [HttpDelete("{id}/deletepost/{postid}")]
         public async Task<IActionResult> DeletePost(int id, int postid)
         {
-            if(id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
-                return Unauthorized();
+            /*if(id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();*/
 
             var postFromRepo = await _repo.GetPost(postid);
             if(postFromRepo != null)
@@ -158,8 +208,8 @@ namespace Project.API.Controllers
         [HttpPut("{id}/update/{postid}")]
         public async Task<IActionResult> UpdatePost(int id, int postid, PostForUpdateDto postForUpdateDto)
         {
-            if(id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
-                return Unauthorized();
+            /*if(id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();*/
             postForUpdateDto.Video_link = postForUpdateDto.Video_link.Replace("watch?v=","embed/");
             var postFromRepo = await _repo.GetPost(postid);
 
@@ -180,7 +230,7 @@ namespace Project.API.Controllers
            
             var parameters = new Dictionary<string, string>
             {
-                ["key"] = "AIzaSyDjWtkPa1sYU75Wq3gfaUbVV_U0QW8UF6o",
+                ["key"] = "AIzaSyAOlmjRIUBMpdKQcHTkAeaGaX7DO1KQYQE",
                 ["part"] = "snippet",
                 ["q"] = word,
                 ["maxResults"] = "7"
@@ -215,7 +265,7 @@ namespace Project.API.Controllers
         {
            var parameters = new Dictionary<string, string>
             {
-                ["key"] = "AIzaSyDjWtkPa1sYU75Wq3gfaUbVV_U0QW8UF6o",
+                ["key"] = "AIzaSyAOlmjRIUBMpdKQcHTkAeaGaX7DO1KQYQE",
                 ["playlistId"] = link,
                 ["part"] = "snippet",
                 ["fields"] = "items/snippet(title, description, resourceId)",
@@ -267,6 +317,18 @@ namespace Project.API.Controllers
             return Ok(post);
         }
 
+        [HttpPut("delete/{id}")]
+        public async Task<IActionResult> DeleteNews(int id)
+        {
+            var news = await _repo.GetPost(id);
+            news.Status = 0;
+
+            if (await _repo.SaveAll())
+                return NoContent();
+
+            throw new Exception($"Updating news {id} failed on save");
+        }
+
         [HttpGet("{id}/posts")]
         public async Task<IActionResult> GetUserPosts(int id)
         {
@@ -284,8 +346,30 @@ namespace Project.API.Controllers
                         Link = post.Video_link,
                         Date = post.Created_date
                     };
-            result = result.OrderByDescending(i => i.Date);
-            return Ok(result);
+            var likes = from pl in _context.Post_Likes
+                        join ac in _context.Accounts on pl.AccountId equals ac.Id
+                        group pl by pl.Post_id into g
+                        select new {
+                            Post = g.Key,
+                            Likes = g.Count()
+                        };
+
+            var res = from r in result
+                    join like in likes on r.PostId equals like.Post into Details
+                    from m in Details.DefaultIfEmpty()
+                    select new
+                    {
+                        AccountId = r.AccountId,
+                        PostId = r.PostId,
+                        Name = r.Name,
+                        Text = r.Text,
+                        Link = r.Link,
+                        Date = r.Date,
+                        Like = m?.Likes ?? 0
+                    };
+            
+            res = res.OrderByDescending(i => i.Date);
+            return Ok(res);
 
         }
 
@@ -348,10 +432,19 @@ namespace Project.API.Controllers
 
             var dateCriteria = DateTime.Now.Date.AddDays(-7);
 
+            var likes = from pl in _context.Post_Likes
+                        join ac in _context.Accounts on pl.AccountId equals ac.Id
+                        group pl by pl.Post_id into g
+                        select new {
+                            Post = g.Key,
+                            Likes = g.Count()
+                        };
+            
+
             var result = from ap in account_percentage
                     join post in _context.Posts on ap.Id equals post.AccountId
                     join acc in _context.Accounts on post.AccountId equals acc.Id
-                    where post.Created_date > dateCriteria
+                    where post.Created_date > dateCriteria && post.Status == 1 && acc.Status == 1
                     select new
                     {
                         AccountId = post.AccountId,
@@ -362,13 +455,26 @@ namespace Project.API.Controllers
                         Date = post.Created_date
                     };
 
+            var res = from r in result
+                    join like in likes on r.PostId equals like.Post into Details
+                    from m in Details.DefaultIfEmpty()
+                    select new
+                    {
+                        AccountId = r.AccountId,
+                        PostId = r.PostId,
+                        Name = r.Name,
+                        Text = r.Text,
+                        Link = r.Link,
+                        Date = r.Date,
+                        Like = m?.Likes ?? 0
+                    };
            /* foreach(var p in result)
             {
                 var like = await _repo.GetLike(id,p.PostId);
                 if(like != null ) p.Like = true;
             }*/
                 
-            return Ok(result);
+            return Ok(res);
 
 
  

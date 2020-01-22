@@ -15,9 +15,7 @@ form {
     margin: 20px 0;
     padding: 10px 0;
 }
-#headingLabel {
-    color: white;
-}
+
 #youtube input {
     background: transparent;
     border: 2px solid #c4302b;
@@ -52,7 +50,11 @@ iframe {
     outline: none;
     margin: 0 10%;
 }
-hr {
+
+#youtube label {
+    color: #f9f9f9;
+}
+#youtube hr {
     border: 2px solid white;
 }
 

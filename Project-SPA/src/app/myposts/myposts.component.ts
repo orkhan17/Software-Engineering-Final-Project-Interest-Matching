@@ -32,6 +32,16 @@ export class MypostsComponent implements OnInit {
 like(id) {
   this.accountService.like(this.authService.decodedToken.nameid, id).subscribe(next => {
     this.alertify.success('Liked successfully');
+    this.getposts();
+  }, error => {
+    this.alertify.error(error);
+  });
+}
+
+delete(postid) {
+  this.accountService.deletepost(postid).subscribe(next => {
+    this.alertify.success('Deleted successfully');
+    this.getposts();
   }, error => {
     this.alertify.error(error);
   });

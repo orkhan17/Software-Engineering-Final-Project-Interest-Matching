@@ -35,6 +35,7 @@ namespace Project.API.Controllers
             if (await _repo.UserExists(accountForRegisterDto.Username))
                 return BadRequest("Username already exists");
 
+            accountForRegisterDto.Status = 1;
             var accountCreate = _mapper.Map<Account>(accountForRegisterDto);
 
             var createdUser = await _repo.Register(accountCreate, accountForRegisterDto.Password);
@@ -46,8 +47,8 @@ namespace Project.API.Controllers
         public async Task<IActionResult> Login(AccountForLoginDto accountForLoginDto)
         {
             var accountFromRepo = await _repo.Login(accountForLoginDto.Username.ToLower(), accountForLoginDto.Password);
-
-            if (accountFromRepo == null)
+            
+            if (accountFromRepo == null || accountFromRepo.Status==0)
                 return Unauthorized();
 
             var claims = new[]
@@ -78,6 +79,23 @@ namespace Project.API.Controllers
                 token = tokenHandler.WriteToken(token),
                 account
             });
+        }
+
+        [HttpPut("delete")]
+        public async Task<IActionResult> Delete(AccountForLoginDto accountForLoginDto)
+        {
+            var accountFromRepo = await _repo.Login(accountForLoginDto.Username.ToLower(), accountForLoginDto.Password);
+            
+            if (accountFromRepo == null || accountFromRepo.Status==0)
+                return Unauthorized();
+            accountFromRepo.Status=0;
+            if(await _repo.SaveAll())
+            {
+                return Ok();
+            }
+               
+            
+            throw new Exception($"Updating user failed on save");
         }
     }
 }

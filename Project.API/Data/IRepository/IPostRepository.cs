@@ -10,6 +10,8 @@ namespace Project.API.Data.IRepository
          void Delete<T>(T entity) where T:class;
          Task<bool> SaveAll();
          Task<IEnumerable<Post>> GetPosts();
+          Task<IEnumerable<Post>> Get5Posts();
+        Task<IEnumerable<Follower>> Getfollowing(int id);
          Task<Post> GetPost(int id);
 
          Task<Post_Like> GetLike(int userid, int postid);

@@ -9,8 +9,8 @@ using Project.API.Data;
 namespace Project.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191110185517_AccountMigrations")]
-    partial class AccountMigrations
+    [Migration("20191214205112_ExtendedMigrationsAdded")]
+    partial class ExtendedMigrationsAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -39,11 +39,27 @@ namespace Project.API.Migrations
 
                     b.Property<byte[]>("PasswordSalt");
 
+                    b.Property<int>("Status");
+
                     b.Property<string>("Username");
 
                     b.HasKey("Id");
 
                     b.ToTable("Accounts");
+                });
+
+            modelBuilder.Entity("Project.API.Models.Follower", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AccountId");
+
+                    b.Property<int>("Following_AccountId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Followers");
                 });
 
             modelBuilder.Entity("Project.API.Models.Music_type", b =>
@@ -82,6 +98,8 @@ namespace Project.API.Migrations
 
                     b.Property<DateTime>("Created_date");
 
+                    b.Property<int>("Status");
+
                     b.Property<string>("Text");
 
                     b.Property<string>("Video_link");
@@ -91,6 +109,34 @@ namespace Project.API.Migrations
                     b.HasIndex("AccountId");
 
                     b.ToTable("Posts");
+                });
+
+            modelBuilder.Entity("Project.API.Models.Post_Like", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AccountId");
+
+                    b.Property<int>("Post_id");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Post_Likes");
+                });
+
+            modelBuilder.Entity("Project.API.Models.Visited_profile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AccountId");
+
+                    b.Property<int>("Following_AccountId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Visited_profiles");
                 });
 
             modelBuilder.Entity("Project.API.Models.Music_type_account", b =>

@@ -1,25 +1,36 @@
 div {
     margin: auto;
-    width: 50%;
+    width: 100%;
 }
 
 form {
     margin: auto;
-    width: 50%;
+    width: 40%;
 }
 
-
-/* 
-label{
+textarea {
     color: #f9f9f9;
-    border-bottom: solid #ff5a68 1px;
-} */
+    background-color: #273447;
+    display: block;
+    margin: 10px 0;
+    border: 1px solid #f9f9f9;
+    border-radius: 20px;
+    padding: 5px 30px;
+    transition: 0.2s;
+    outline: none;
+    width: 100%;
+}
+
+textarea:focus {
+    border: 1px solid #42c7e6;
+    color: #42c7e6;
+}
 
 input {
     color: #f9f9f9;
     background-color: #273447;
     display: block;
-    margin: 10px 0 10px 0;
+    margin: 10px 0;
     border: 1px solid #f9f9f9;
     border-radius: 20px;
     padding: 5px 30px;
@@ -35,6 +46,7 @@ input:focus {
 
 button {
     color: #f9f9f9;
+    font-weight: bold;
     background-color: #42c7e6;
     border: 0px;
     border-radius: 50px;

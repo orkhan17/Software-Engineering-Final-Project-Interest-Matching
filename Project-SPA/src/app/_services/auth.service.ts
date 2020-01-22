@@ -33,4 +33,13 @@ loggedIn() {
 register(model: any) {
   return this.http.post(this.baseUrl + 'register', model);
 }
+update(id: number, model: any) {
+  return this.http.put('http://localhost:5000/api/account/' + id, model);
+}
+get(id: number) {
+  return this.http.get('http://localhost:5000/api/account/' + id + '/user');
+}
+delete(model: any) {
+  return this.http.put(this.baseUrl + 'delete', model);
+}
 }

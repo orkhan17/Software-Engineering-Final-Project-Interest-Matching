@@ -1,10 +1,27 @@
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap');
+* {
+    box-sizing: border-box;
+}
+
 #gencontainer {
     margin: auto;
-    width: 60%;
+    width: 95%;
     background: #273447;
     box-shadow: 0 6px 20px 0 #232931, 0 6px 20px 0 #232931;
     border-radius: 20px;
-    padding: 0,0,100px,0;
+}
+
+#postinfo {
+    width: 100%;
+    margin: auto;
+}
+
+#description {
+    color: #f9f9f9;
+    font-family: 'IBM Plex Sans', sans-serif;
+    text-align: justify;
+    text-justify: inter-word;
+    margin: 0 20px;
 }
 
 iframe {
@@ -13,36 +30,82 @@ iframe {
 
 #container {
     width: 100%;
+    margin: auto;
+    text-align: center;
 }
 
+#like {
+    width: 100%;
+}
 
-/* #like {}
-
-#comment {}
-
-#share {}
-
-#date {} */
+#thumbsup {
+    width: 100%;
+}
 
 button {
-    font-size: 65%;
+    font-size: 90%;
     color: #f9f9f9;
     font-weight: bold;
-    background-color: #42c7e6;
-    border: 0;
-    height: 20px;
-    border-radius: 50px;
+    background-color: transparent;
+    border: 2px solid #42c7e6;
+    color: #42c7e6;
+    height: 50%;
+    border-radius: 0;
     outline: none;
     transition: 0.2s;
-    width: 50%;
+    width: 60%;
 }
 
 button:hover {
-    background-color: #94fc13;
+    border: 2px solid #a7d129;
+    color: #a7d129;
 }
 
 label {
-    color: #42c7e6;
+    text-align: center;
     width: 100%;
     word-wrap: break-word;
+    color: #f9f9f9;
+}
+
+#comments {
+    margin: auto;
+    width: 95%;
+    background: #a7d129;
+    box-shadow: 0 6px 20px 0 #232931, 0 6px 20px 0 #232931;
+    border-radius: 10px;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+#comments label {
+    color: #232931;
+    font-weight: bold;
+}
+
+#comments p {
+    color: #232931;
+}
+
+#comment {
+    margin: auto;
+    width: 78%;
+}
+
+input {
+    height: 40px;
+    width: 100%;
+    margin: 10px 0;
+    border: 1px solid #42c7e6;
+    border-radius: 10px;
+    color: #42c7e6;
+    background: transparent;
+    outline: none;
+    padding: 5px 30px;
+}
+
+input:focus {
+    border: 3px solid #a7d129;
+    color: #a7d129;
+    transition: 0.2s;
 }

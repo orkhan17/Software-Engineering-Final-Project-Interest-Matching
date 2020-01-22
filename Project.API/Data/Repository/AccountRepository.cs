@@ -34,13 +34,15 @@ namespace Project.API.Data.Repository
 
         public async Task<Account> GetAccount(int id)
         {
-            var user = await _context.Accounts.FirstOrDefaultAsync(a => a.Id == id);
+            var user = await _context.Accounts.FirstOrDefaultAsync(a => a.Id == id && a.Status ==1 );
             return user;
         }
 
         public async Task<IEnumerable<Account>> GetAccounts()
         {
-            return await _context.Accounts.ToListAsync();
+            var accounts = _context.Accounts.AsQueryable();
+            var result = accounts.Where(a => a.Status==1).ToListAsync();
+            return await result;
         }
 
         public async Task<IEnumerable<Music_type>> GetMusicType()

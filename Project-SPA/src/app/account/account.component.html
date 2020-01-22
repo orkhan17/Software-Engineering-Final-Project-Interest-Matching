@@ -1,0 +1,27 @@
+
+<div id="gencontainer" *ngFor="let p of post">
+        <form #loginForm="ngForm"  (ngSubmit)="update(p.postId)">
+  <div class="row" id="postinfo">
+  </div>
+  <div id="description">
+      <textarea name="" id="video-description" cols="30" rows="10" name="text" [(ngModel)]="model.Text">{{p.text}}</textarea>
+      <input type="text" placeholder="Paste desired YouTube embed link here" name="" id="video-link"  name="video" [(ngModel)]="model.Video_link">
+  </div>
+  <iframe width="853" height="480" [src]='sanitizer.bypassSecurityTrustResourceUrl(p.link)' frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <div id="container" class="row">
+      <div class="col-md-12">
+          <button id="modifications" type="submit" >Save Modifications</button>
+      </div>
+    </div>
+      </form>
+
+    <div id="container" class="row">
+        <div class="col-md-12">
+          <button id="delete" (click)="delete(p.postId)">Delete Post</button>
+      </div>
+    </div>
+      
+  
+
+</div>
+  

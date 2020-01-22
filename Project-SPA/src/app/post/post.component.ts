@@ -20,6 +20,7 @@ export class PostComponent implements OnInit {
 
   ngOnInit() {
      this.getposts();
+     console.log(this.post);
   }
 
   getposts() {
@@ -41,7 +42,17 @@ export class PostComponent implements OnInit {
   like(id, accountid) {
     this.accountService.like(this.authService.decodedToken.nameid, id).subscribe(next => {
       this.alertify.success('Liked successfully');
+      this.getposts();
       this.savevisit(accountid);
+    }, error => {
+      this.alertify.error(error);
+    });
+  }
+
+  follow(followingid) {
+    this.accountService.follow(this.authService.decodedToken.nameid, followingid).subscribe(next => {
+      this.alertify.success('Followed successfully');
+      this.savevisit(followingid);
     }, error => {
       this.alertify.error(error);
     });

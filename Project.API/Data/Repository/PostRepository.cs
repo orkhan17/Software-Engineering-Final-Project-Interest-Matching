@@ -31,7 +31,9 @@ namespace Project.API.Data.Repository
 
         public async Task<IEnumerable<Account>> GetAccounts()
         {
-            return await _context.Accounts.ToListAsync();
+            var accounts = _context.Accounts.AsQueryable();
+            var result = accounts.Where(a => a.Status==1).ToListAsync();
+            return await result;
         }
 
         public async Task<IEnumerable<Music_type_account>> GetAccountsPreference(int id)
@@ -42,13 +44,24 @@ namespace Project.API.Data.Repository
 
         public async Task<Post> GetPost(int id)
         {
-            return await _context.Posts.FirstOrDefaultAsync(p => p.Id == id);
+            return await _context.Posts.FirstOrDefaultAsync(p => p.Id == id && p.Status==1);
         }
 
         public async Task<IEnumerable<Post>> GetPosts()
         {
-            return await _context.Posts.ToListAsync();
+            var posts = _context.Posts.AsQueryable();
+            var result = posts.Where(a => a.Status == 1).ToListAsync();
+            return await result;
         }
+
+        public async Task<IEnumerable<Post>> Get5Posts()
+        {
+            var posts = _context.Posts.AsQueryable();
+            var result = posts.Where(a => a.Status == 1).OrderByDescending(d => d.Created_date).ToListAsync();
+            return await result;
+        }
+
+
 
         public async Task<IEnumerable<Visited_profile>> GetVisitedProfiles(int id)
         {
@@ -64,7 +77,7 @@ namespace Project.API.Data.Repository
 
         public async Task<Account> GetAccount(int id)
         {
-            var user = await _context.Accounts.FirstOrDefaultAsync(a => a.Id == id);
+            var user = await _context.Accounts.FirstOrDefaultAsync(a => a.Id == id && a.Status == 1);
             return user;
         }
 
@@ -80,7 +93,11 @@ namespace Project.API.Data.Repository
             return follow;
         }
 
-
-        
+        public async Task<IEnumerable<Follower>> Getfollowing(int id)
+        {
+            var followings =  _context.Followers.AsQueryable();
+            var result = followings.Where(a => a.AccountId == id).ToListAsync();
+            return await result;
+        }
     }
 }

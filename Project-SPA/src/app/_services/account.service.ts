@@ -22,6 +22,9 @@ constructor(private http: HttpClient) { }
   getposts(userid: number) {
     return this.http.get<Post[]>(this.baseUrlpost + 'visit/' + userid);
   }
+  get5posts() {
+    return this.http.get<Post[]>(this.baseUrlpost + '5post');
+  }
   getsearch(word: string) {
     return this.http.get<Post[]>(this.baseUrlpost + 'search/' + word);
   }
@@ -37,11 +40,31 @@ constructor(private http: HttpClient) { }
     return this.http.post(this.baseUrlpost + userId, model);
   }
 
+  delete(userId: number, model: any) {
+    return this.http.delete(this.baseUrlaccount + userId, model);
+  }
+
+  delete_post(userId: number, post: number) {
+    return this.http.delete(this.baseUrlpost + userId + '/deletepost/' + post);
+  }
+  update_post(userId: number, post: number, model: any) {
+    return this.http.put(this.baseUrlpost + userId + '/update/' + post, model);
+  }
+
   like(userId: number, post: number) {
     return this.http.post(this.baseUrlpost + userId + '/like/' + post, {});
   }
 
+  follow(userId: number, followingid: number) {
+    return this.http.post(this.baseUrlpost + userId + '/follow/' + followingid, {});
+  }
+  deletepost(postid: number) {
+    return this.http.put(this.baseUrlpost + 'delete/' + postid, {});
+  }
   savevisitedprofile(userId: number, id: number) {
     return this.http.post(this.baseUrlpost + userId + '/visit/' + id, {});
+  }
+  getfollowersposts(userid: number) {
+    return this.http.get<Post[]>(this.baseUrlpost + userid + '/following');
   }
 }

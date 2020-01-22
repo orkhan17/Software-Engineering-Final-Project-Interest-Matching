@@ -37,6 +37,8 @@ namespace Project.API.Migrations
 
                     b.Property<byte[]>("PasswordSalt");
 
+                    b.Property<int>("Status");
+
                     b.Property<string>("Username");
 
                     b.HasKey("Id");
@@ -93,6 +95,8 @@ namespace Project.API.Migrations
                     b.Property<int>("AccountId");
 
                     b.Property<DateTime>("Created_date");
+
+                    b.Property<int>("Status");
 
                     b.Property<string>("Text");
 

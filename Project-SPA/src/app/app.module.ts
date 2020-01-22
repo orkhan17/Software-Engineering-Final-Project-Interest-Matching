@@ -23,6 +23,9 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { SharePostComponent } from './share-post/share-post.component';
 import { MypostsComponent } from './myposts/myposts.component';
 import { TimeAgoPipe } from 'time-ago-pipe';
+import { AccountComponent } from './account/account.component';
+import { FollowersComponent } from './followers/followers.component';
+import { UserpostsComponent } from './userposts/userposts.component';
 @NgModule({
    declarations: [
       AppComponent,
@@ -37,7 +40,10 @@ import { TimeAgoPipe } from 'time-ago-pipe';
       EditProfileComponent,
       SharePostComponent,
       MypostsComponent,
-      TimeAgoPipe
+      TimeAgoPipe,
+      AccountComponent,
+      FollowersComponent,
+      UserpostsComponent
    ],
    imports: [
       BrowserModule,

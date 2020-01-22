@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Project.API.Migrations
 {
-    public partial class AccountMigrations : Migration
+    public partial class ExtendedMigrationsAdded : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -21,11 +21,26 @@ namespace Project.API.Migrations
                     Gender = table.Column<string>(nullable: true),
                     Birth_date = table.Column<DateTime>(nullable: false),
                     Created_date = table.Column<DateTime>(nullable: false),
-                    Last_active = table.Column<DateTime>(nullable: false)
+                    Last_active = table.Column<DateTime>(nullable: false),
+                    Status = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Accounts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Followers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    AccountId = table.Column<int>(nullable: false),
+                    Following_AccountId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Followers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -42,6 +57,34 @@ namespace Project.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Post_Likes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    AccountId = table.Column<int>(nullable: false),
+                    Post_id = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Post_Likes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Visited_profiles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    AccountId = table.Column<int>(nullable: false),
+                    Following_AccountId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Visited_profiles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Posts",
                 columns: table => new
                 {
@@ -50,6 +93,7 @@ namespace Project.API.Migrations
                     AccountId = table.Column<int>(nullable: false),
                     Text = table.Column<string>(nullable: true),
                     Video_link = table.Column<string>(nullable: true),
+                    Status = table.Column<int>(nullable: false),
                     Created_date = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
@@ -102,10 +146,19 @@ namespace Project.API.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Followers");
+
+            migrationBuilder.DropTable(
                 name: "Music_type_accounts");
 
             migrationBuilder.DropTable(
+                name: "Post_Likes");
+
+            migrationBuilder.DropTable(
                 name: "Posts");
+
+            migrationBuilder.DropTable(
+                name: "Visited_profiles");
 
             migrationBuilder.DropTable(
                 name: "Music_types");

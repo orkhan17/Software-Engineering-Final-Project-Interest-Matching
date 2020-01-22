@@ -5,4 +5,5 @@ export interface Post {
     text: string;
     link: string;
     date: Date;
+    like: number;
 }

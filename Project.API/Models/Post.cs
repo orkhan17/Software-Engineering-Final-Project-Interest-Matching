@@ -8,6 +8,7 @@ namespace Project.API.Models
         public int AccountId { get; set; }
         public string Text { get; set; }
         public string Video_link { get; set; }
+        public int Status { get; set; }
         public DateTime Created_date { get; set; }
         public Account Account { get; set; }
 

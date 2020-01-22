@@ -71,5 +71,9 @@ namespace Project.API.Data.Repository
 
             return false;
         }
+        public async Task<bool> SaveAll()
+        {
+            return await _context.SaveChangesAsync() > 0;
+        }
     }
 }

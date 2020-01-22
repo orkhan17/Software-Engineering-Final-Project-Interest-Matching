@@ -1,0 +1,66 @@
+ #postcontainer{
+     width: 100%;
+ }
+ /* #gencontainer{
+     margin: auto;
+     width: 80%;
+ } */
+
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap');
+* {
+    box-sizing: border-box;
+}
+
+#gencontainer {
+    margin: auto;
+    width: 80%;
+    background: #273447;
+    box-shadow: 0 6px 20px 0 #232931, 0 6px 20px 0 #232931;
+    border-radius: 20px;
+    text-align: justify;
+    text-justify: inter-word;
+    padding: 10px 10px;
+}
+
+#postinfo {
+    width: 100%;
+    margin: auto;
+}
+
+#description {
+    color: #f9f9f9;
+    font-family: 'IBM Plex Sans', sans-serif;
+    text-align: justify;
+    text-justify: inter-word;
+    margin: 0 10px;
+}
+
+p{
+    text-align: justify;
+    text-justify: inter-word;
+    color: #f9f9f9;
+    width: 100%;
+    margin: 20px 20px;
+}
+
+iframe {
+    width: 100%;
+    margin: 0 0 20px 0;
+}
+
+.info{
+    widows: 100%;
+}
+
+label{
+    color: #f9f9f9;
+    width: 100%;
+}
+
+/* .info label{
+    margin: auto;
+} */
+
+#reginfo{
+    margin: auto;
+}
